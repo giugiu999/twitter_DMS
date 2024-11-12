@@ -28,7 +28,7 @@ The system uses the following tables:
 1. **Install Requirements**: Ensure Python 3 and SQLite are installed.
 2. **Database Setup**: Import the provided database schema using:
    ```sh
-   sqlite3 your_database.db < schema.sql
+   sqlite3 database.db < schema.sql
 3. **Run the application**:Start the app with:
    ```sh
-   python main.py your_database.db
+   python main.py database.db
