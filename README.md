@@ -4,13 +4,14 @@ This project implements an enterprise data management system using Python and SQ
 
 ## Features
 
-1. **User Authentication**: Supports login for registered users and signup for new users.
+1. **User Authentication**: Supports login for registered users and signup for new users. Custom password input that shows '*' for each character for security.
 2. **View Tweets and Retweets**: Registered users can view tweets and retweets by people they follow.
 3. **Tweet Search**: Allows searching for tweets based on keywords or hashtags.
 4. **User Search**: Find users by name keyword.
 5. **Compose Tweet**: Users can post new tweets with hashtags.
-6. **List Followers**: View and manage followers.
-7. **Logout**: Users can log out and return to the main screen.
+6. **Reply&Retweet**: Users can reply to a tweet or retweet a tweet(if the user didn't retweet it before).
+7. **List Followers**: View and manage followers.
+8. **Logout**: Users can log out and return to the main screen.
 
 ## Database Schema
 
@@ -39,11 +40,8 @@ A user's favorite list is stored in the "lists" table that records the user's id
 
 ## Setup and Execution
 
-1. **Install Requirements**: Ensure Python 3 and SQLite are installed.
-2. **Database Setup**: Import the provided database schema using:
+1. **Install Requirements**: Ensure Python and SQLite3 are installed.
+2. **Run the application**:Start the app with:
    ```sh
-   sqlite3 database.db < schema.sql
-3. **Run the application**:Start the app with:
-   ```sh
-   python main.py database.db
+   python main.py prj-sample.db
 **we have a sample database for testing, but you can use your own database.If you have any questions about the code, feel free to contact me!**
