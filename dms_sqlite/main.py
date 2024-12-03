@@ -14,7 +14,7 @@ def main():
         print("Usage: python main.py <database_path>")
         sys.exit(1)
     menu = "Dashboard:\n1.log in \n2.register\n3.exit"
-    usermenu = "Welcome back! Dashboard:\n1.search for tweets\n2.search for users\n3.compose a tweet\n4.list followers\n5.logout\n"
+    usermenu = "\nWelcome back! Dashboard:\n1.search for tweets\n2.search for users\n3.compose a tweet\n4.list followers\n5.reply to a tweet\n6.retweet a tweet\n7.follow a user\n8.log out"
     path = sys.argv[1]
     # check if it's valid path
     try:
@@ -23,8 +23,8 @@ def main():
     except Exception as e:
         print(f"Failed to connect to database: {e}")
         sys.exit(1)
-
-    while True:
+    loop=True
+    while loop:
         print(menu)
         try:
             code = int(input("enter the number for the operation:"))
@@ -62,6 +62,7 @@ def main():
             answer=input("log out?(y/n)")
             if answer == 'y':
                 login_out.logout()
+                loop=False
             
 if __name__ =="__main__":
     main()
