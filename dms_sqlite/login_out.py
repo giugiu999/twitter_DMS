@@ -1,8 +1,38 @@
 import connect
+import sys
+import termios
+import tty
+
+def input_password(prompt="Enter your password: "):
+    """Custom password input that shows '*' for each character"""
+    print(prompt, end='', flush=True)
+    password = ""
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        while True:
+            char = sys.stdin.read(1)
+            if char == '\n' or char == '\r':  # Enter key
+                print()  # Move to the next line
+                break
+            elif char == '\x7f':  # Backspace key
+                if len(password) > 0:
+                    password = password[:-1]
+                    # Erase the last '*' from the terminal
+                    sys.stdout.write('\b \b')
+                    sys.stdout.flush()
+            else:
+                password += char
+                sys.stdout.write('*')
+                sys.stdout.flush()
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return password
 
 def login(usr):
     ''' if user login successfully,return True, otherwis return false '''    
-    pwd = input("password: ")
+    pwd = input_password("password: ")
     checksql = '''select pwd from users where usr = ?;'''
     connect.c.execute(checksql, (usr,))
     result = connect.c.fetchone()
@@ -10,7 +40,7 @@ def login(usr):
         print("The user doesn't exist.")
         return False
     if result and result[0] == pwd:
-        print("you log in successfully!")
+        print("\nyou log in successfully!")
         return True
     else:
         print("the user doesn't or password is incorrect.") # 分成两部分1.不存在 2.密码错误
@@ -18,7 +48,7 @@ def login(usr):
 
 def logout():
     print("You have logged out successfully!")
-    return
+    return False
 
 def register():
     '''
@@ -32,8 +62,8 @@ def register():
     phone_num = input("please enter your phone number:")
     # enterthe same password twiice for verification
     while True:
-        pwd = input("Please enter your password: ")
-        confirm_pwd = input("Please confirm your password: ")
+        pwd = input_password("Please enter your password: ")
+        confirm_pwd = input_password("Please confirm your password: ")
         if pwd == confirm_pwd:
             break
         else:
